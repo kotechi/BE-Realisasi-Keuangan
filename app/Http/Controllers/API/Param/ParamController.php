@@ -47,6 +47,55 @@ class ParamController extends Controller
         );
     }
 
+    public function deputi_dropdown(Request $request)
+    {
+        $query = Unit::whereNull('parent_code')
+                     ->orWhere('parent_code', '');
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        $units = $query->orderBy('name', 'asc')->get();
+
+        return ResponseFormatter::success(
+            UnitDropdownResource::collection($units), 
+            'success get deputi dropdown data'
+        );
+    }
+
+    public function asdep_dropdown(Request $request)
+    {
+        $query = Unit::whereNotNull('parent_code')
+                     ->where('parent_code', '!=', '');
+
+        // Filter by parent_code (deputi)
+        if ($request->has('parent_code') && $request->parent_code) {
+            $query->where('parent_code', $request->parent_code);
+        }
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        $units = $query->orderBy('name', 'asc')->get();
+
+        return ResponseFormatter::success(
+            UnitDropdownResource::collection($units), 
+            'success get asdep dropdown data'
+        );
+    }
+
     public function priority_program()
     {
         return $this->param('priority_program');

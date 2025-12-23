@@ -1,0 +1,1616 @@
+{
+	"info": {
+		"_postman_id": "be-realisasi-keuangan-api",
+		"name": "BE Realisasi Keuangan API",
+		"description": "Complete API Collection for BE Realisasi Keuangan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.access_token) {",
+									"        pm.collectionVariables.set(\"access_token\", jsonData.data.access_token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ministry",
+			"item": [
+				{
+					"name": "Get All Ministries",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ministry",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ministry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Ministry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/ministry/import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ministry",
+								"import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Realization",
+			"item": [
+				{
+					"name": "Get All Realizations",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/realization/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total Realization",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/realization/total",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total by Periode",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/realization/total_by_periode",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								"total_by_periode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Realization",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_code\": \"001\",\n    \"amount\": 1000000,\n    \"periode\": \"2025-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/realization",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Realization by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/realization/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Realization",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 2000000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/realization/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Realization",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/realization/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Realization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/realization/import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"realization",
+								"import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Honor",
+			"item": [
+				{
+					"name": "Get All Honors",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/honor",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"honor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Honor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/honor/import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"honor",
+								"import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Program Activity",
+			"item": [
+				{
+					"name": "Get All Program Activities",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/program_activity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Program Activity by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/program_activity/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total Statistics",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/program_activity/statistics/total",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity",
+								"statistics",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Program Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Program Activity Name\",\n    \"description\": \"Description\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/program_activity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Program Activity",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Name\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/program_activity/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Recommendation",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recommendation\": \"New recommendation\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/program_activity/:id/update_recommendation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity",
+								":id",
+								"update_recommendation"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program Activity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/program_activity/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"program_activity",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Monev",
+			"item": [
+				{
+					"name": "Get All Monevs",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/monev",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"monev"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Monev by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/monev/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"monev",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Monev",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Monev Title\",\n    \"description\": \"Description\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/monev",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"monev"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Monev",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Title\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/monev/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"monev",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Monev",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/monev/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"monev",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Note",
+			"item": [
+				{
+					"name": "Get All Notes",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/note",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/note/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"note",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Note Title\",\n    \"content\": \"Note content\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/note",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Note",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Title\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/note/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"note",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Note",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/note/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"note",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters",
+			"item": [
+				{
+					"name": "Get Execution Units",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/execution_unit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"execution_unit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Units",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/unit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"unit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unit Dropdown",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/unit_dropdown?search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"unit_dropdown"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search by unit name or code"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Priority Programs",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/priority_program",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"priority_program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note Units",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/note_unit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"note_unit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Participants",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/participant?type=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"participant"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "",
+									"description": "Optional: material_preparation"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Padanan Data Categories",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/padanan_data_category",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"padanan_data_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Padanan Data Sources",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/param/padanan_data_source",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"param",
+								"padanan_data_source"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Depkop",
+			"item": [
+				{
+					"name": "Get Cooperative Summary",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/depkop/cooperative_summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"depkop",
+								"cooperative_summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rekap Jenis Koperasi",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/depkop/rekap_jenis_koperasi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"depkop",
+								"rekap_jenis_koperasi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rekap Bentuk Koperasi",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/depkop/rekap_bentuk_koperasi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"depkop",
+								"rekap_bentuk_koperasi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rekap Pengesahan",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/depkop/rekap_pengesahan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"depkop",
+								"rekap_pengesahan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Parameter Date",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/depkop/parameter_date",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"depkop",
+								"parameter_date"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee Recap",
+			"item": [
+				{
+					"name": "Get Employee Recaps",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employee_recap",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_recap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upsert Employee Recap",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employee_id\": \"12345\",\n    \"data\": {}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/employee_recap/upsert",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_recap",
+								"upsert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recap Date",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/recap_date",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"recap_date"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee Retire",
+			"item": [
+				{
+					"name": "Get All Employee Retires",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employee_retire",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_retire"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee Retire by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employee_retire/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_retire",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employee Retire",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employee_id\": \"12345\",\n    \"retire_date\": \"2025-12-31\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/employee_retire",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_retire"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee Retire",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"retire_date\": \"2026-01-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/employee_retire/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_retire",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee Retire",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/employee_retire/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"employee_retire",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Priority Scale",
+			"item": [
+				{
+					"name": "Get All Priority Scales",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/priority_scale",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"priority_scale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upsert Priority Scale",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scale\": \"high\",\n    \"value\": 10\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/priority_scale/upsert",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"priority_scale",
+								"upsert"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Padanan Data",
+			"item": [
+				{
+					"name": "Get All Padanan Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/padanan_data",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"padanan_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Padanan Data by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/padanan_data/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"padanan_data",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Padanan Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"Category Name\",\n    \"source\": \"Source Name\",\n    \"data\": {}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/padanan_data",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"padanan_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Padanan Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"Updated Category\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/padanan_data/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"padanan_data",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Padanan Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/padanan_data/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"padanan_data",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
