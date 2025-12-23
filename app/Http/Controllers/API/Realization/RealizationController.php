@@ -193,7 +193,7 @@ class RealizationController extends Controller
         $budget_aa = $realization->sum('budget_aa');
         $realization_spp = $realization->sum('realization_spp');
         $sp2d = $realization->sum('sp2d');
-        $realization_spp_percent = ($budget_aa > 0) ? round($realization_spp / $budget_aa * 100, 2) : 0;
+        $realization_spp_percent = ($realization_spp > 0) ? round($budget_aa / $realization_spp * 100, 2) : 0;
         $sp2d_percent = ($budget > 0) ? round($sp2d / $budget * 100, 2) : 0;
         $sp2d_percent_aa = ($budget_aa > 0) ? round($sp2d / $budget_aa * 100, 2) : 0;
         
