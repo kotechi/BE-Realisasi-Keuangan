@@ -39,6 +39,134 @@ class RealizationController extends Controller
         return ResponseFormatter::success(null, 'success import realization data');
     }
 
+    // Input manual - create new realization
+    public function create(Request $request)
+    {
+        $request->validate([
+            'code' => ['required', 'string', 'max:191'],
+            'budget' => ['required', 'numeric', 'min:0'],
+            'aa' => ['required', 'numeric', 'min:0'],
+            'budget_aa' => ['required', 'numeric', 'min:0'],
+            'realization_spp' => ['required', 'numeric', 'min:0'],
+            'sp2d' => ['required', 'numeric', 'min:0'],
+            'date' => ['required', 'date'],
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $realization = Realization::create([
+                'code' => $request->code,
+                'budget' => $request->budget,
+                'aa' => $request->aa,
+                'budget_aa' => $request->budget_aa,
+                'realization_spp' => $request->realization_spp,
+                'sp2d' => $request->sp2d,
+                'date' => $request->date,
+            ]);
+
+            DB::commit();
+
+            return ResponseFormatter::success(
+                new RealizationResource($realization), 
+                'success create realization data'
+            );
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ResponseFormatter::error(
+                null, 
+                'failed to create realization data: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    // Get single realization by ID
+    public function show($id)
+    {
+        try {
+            $realization = Realization::findOrFail($id);
+            
+            return ResponseFormatter::success(
+                new RealizationResource($realization), 
+                'success get realization data'
+            );
+        } catch (\Exception $e) {
+            return ResponseFormatter::error(
+                null, 
+                'realization data not found',
+                404
+            );
+        }
+    }
+
+    // Update data realization
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'code' => ['sometimes', 'string', 'max:191'],
+            'budget' => ['sometimes', 'numeric', 'min:0'],
+            'aa' => ['sometimes', 'numeric', 'min:0'],
+            'budget_aa' => ['sometimes', 'numeric', 'min:0'],
+            'realization_spp' => ['sometimes', 'numeric', 'min:0'],
+            'sp2d' => ['sometimes', 'numeric', 'min:0'],
+            'date' => ['sometimes', 'date'],
+        ]);
+
+        try {
+            $realization = Realization::findOrFail($id);
+
+            DB::beginTransaction();
+
+            $realization->update($request->only([
+                'code', 
+                'budget', 
+                'aa', 
+                'budget_aa', 
+                'realization_spp', 
+                'sp2d', 
+                'date'
+            ]));
+
+            DB::commit();
+
+            return ResponseFormatter::success(
+                new RealizationResource($realization), 
+                'success update realization data'
+            );
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ResponseFormatter::error(
+                null, 
+                'failed to update realization data: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    // Delete data realization
+    public function destroy($id)
+    {
+        try {
+            $realization = Realization::findOrFail($id);
+            $realization->delete();
+
+            return ResponseFormatter::success(
+                null, 
+                'success delete realization data'
+            );
+
+        } catch (\Exception $e) {
+            return ResponseFormatter::error(
+                null, 
+                'failed to delete realization data: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
     public function total()
     {
         $realization = Realization::lastData()

@@ -73,9 +73,15 @@ Route::controller(ParamController::class)->group(function () {
 
 Route::get('/ministry', [MinistryController::class, 'index']);
 
-Route::get('/realization/total', [RealizationController::class, 'total']);
-Route::get('/realization/total_by_periode', [RealizationController::class, 'total_by_periode']);
-Route::get('/realization/all', [RealizationController::class, 'all']);
+Route::prefix('realization')->group(function () {
+    Route::post('/', [RealizationController::class, 'store']); 
+    Route::post('/manual', [RealizationController::class, 'storeManual']); // Input Manual
+    Route::put('/{id}', [RealizationController::class, 'update']); // Update
+    Route::delete('/{id}', [RealizationController::class, 'destroy']); // Delete
+    Route::get('/total', [RealizationController::class, 'total']);
+    Route::get('/total-by-periode', [RealizationController::class, 'total_by_periode']);
+    Route::get('/all', [RealizationController::class, 'all']);
+});
 
 Route::get('/honor', [HonorController::class, 'index']);
 
