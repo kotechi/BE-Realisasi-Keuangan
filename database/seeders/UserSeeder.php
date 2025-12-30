@@ -16,12 +16,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'superappadmin@kemenkopukm.go.id',
-            'role' => 'superadmin',
-            'password' => Hash::make('superappkukm'),
-        ]);
+        // User::create([
+        //     'name' => 'Super Admin',
+        //     'email' => 'superappadmin@kemenkopukm.go.id',
+        //     'role' => 'superadmin',
+        //     'password' => Hash::make('superappkukm'),
+        // ]);
 
         // User::create([
         //     'name' => 'Bagian Keuangan',
