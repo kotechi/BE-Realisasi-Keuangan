@@ -23,15 +23,15 @@ class DatabaseSeeder extends Seeder
         // ]);
         
         $this->call([
-            ProvinceSeeder::class,
-            RoleSeeder::class,
-            ParamSeeder::class,
-            PadananDataSeeder::class,
+            // ProvinceSeeder::class,
+            // RoleSeeder::class,
+            // ParamSeeder::class,
+            // PadananDataSeeder::class,
             UserSeeder::class,
-            UserEselon1Seeder::class,
-            KlSeeder::class,
-            UnitSeeder::class,
-            ParticipantSeeder::class,
+            // UserEselon1Seeder::class,
+            // KlSeeder::class,
+            // UnitSeeder::class,
+            // ParticipantSeeder::class,
         ]);
     }
 }
